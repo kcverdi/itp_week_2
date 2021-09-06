@@ -1,0 +1,102 @@
+# ITP Week 2 Day 3 Exercise
+
+#Write a basic calculator using the input function to complete the following tasks.  Be sure to call your functions at the end, using the correct arguments.
+
+# Easy:
+#     - A function that subtracts one integer from another
+#     - A function that multiplies three integers
+#     - A function that adds four integers
+
+#import math
+
+# def subtract(num_1, num_2):
+#     return num_1 - num_2
+
+# def multiply(num_1, num_2, num_3):
+#     return  num_1 * num_2 * num_3
+
+# def addition(num_1, num_2, num_3, num_4):
+#     return num_1 + num_2 + num_3 + num_4
+
+
+# Medium: 
+#     - Create a calculator function using THREE input parameters (two float, one string[hint: it will be a math symbol]) to allow the user to add, substract, multiply and divide.
+
+
+
+# Hard: 
+#     - You're at a restaurant with some friends and the server didn't split up the check.  Create a function that takes a bill amount, multiplies it by a global variable called tax_rate, adds the tax, and then divides the total bill by the number of people input by the user.  
+#BONUS:  Include an option for adding tip through either a percentage amount assigned to a global varible, or through a specific amount input by the user.  You may use the math module from the Python standard library.
+
+
+
+
+
+def subtract(num_1, num_2):
+    return num_1 - num_2
+
+def multiply(num_1, num_2):
+    return  num_1 * num_2 
+
+def addition(num_1, num_2):
+    return num_1 + num_2 
+
+def divide(num_1, num_2):
+    return num_1 / num_2
+
+
+def calculator(operand_1: float, operand_2: float, op: str):
+    
+    if op == "+" or op == "add":
+        return addition(operand_1,operand_2)
+    elif op == "-" or op == "subtract":
+        if operand_1 >= operand_2:
+            result = subtract(operand_1, operand_2)
+        else:
+            result = subtract(operand_2, operand_1)
+    elif op == "*" or op == "multiply":
+        result = multiply(operand_1,operand_2)
+    elif op == "/" or op == "divide":
+            if operand_1 >= operand_2:
+                result = divide(operand_1, operand_2)
+            else:
+                result = divide(operand_2, operand_1)
+    else:
+        print("Enter a valid math operation: add, subract, multiply, or divide.")
+        result = 0
+    return result
+
+
+
+def check_tip(total):
+    add_tip = input("How would you like to add the tip via an entered amount enter Y or for percentage enter N")
+    if add_tip == "Y" or add_tip == "y":
+        e_tip = input("Enter tip amount in decimal ")
+        tip = float(e_tip)
+    elif add_tip == "N" or add_tip == "n":
+                tip = calculator(total,.20,"*")               
+    else:
+        print("Not a valid option")
+    return tip
+
+
+
+tax_rate = input("Enter the tax rate in decimal form ")
+
+
+def bill_split(bill_amount: float):
+    num_people = input("Enter the number of people to split bill ")
+    f_tax_rate = float(tax_rate)
+    tax = calculator(f_tax_rate,bill_amount,"*")
+    s_tax = str(tax)
+    total_bill = calculator(tax,bill_amount,"+")
+    s_total_bill = str(total_bill)
+    f_num_people = float(num_people)
+    bill_share = calculator(total_bill,f_num_people,"/")
+    s_bill_share = str(bill_share)
+    tip = check_tip(bill_share)
+    total_share = calculator(bill_share,tip,"+")
+    print("The total bill with tip is " + str(round(total_share,2)) + " per person.")
+
+
+bill_split(20)
